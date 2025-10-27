@@ -1,0 +1,60 @@
+<div class="login-container">
+  <div class="login-card">
+    <div class="login-header">
+      <h2>🔐 Prijava</h2>
+      <p>Dobrodošli nazad! Prijavite se na vaš nalog.</p>
+    </div>
+
+    <form (ngSubmit)="prijava()" #loginForm="ngForm">
+      @if (greska) {
+        <div class="poruka-greska">
+          {{ greska }}
+        </div>
+      }
+
+      <div class="form-grupa">
+        <label for="korisnickoIme">Korisničko ime</label>
+        <input
+          type="text"
+          id="korisnickoIme"
+          name="korisnickoIme"
+          [(ngModel)]="korisnickoIme"
+          required
+          class="form-input"
+          placeholder="Unesite korisničko ime"
+          [disabled]="ucitavanje"
+        />
+      </div>
+
+      <div class="form-grupa">
+        <label for="lozinka">Lozinka</label>
+        <input
+          type="password"
+          id="lozinka"
+          name="lozinka"
+          [(ngModel)]="lozinka"
+          required
+          class="form-input"
+          placeholder="Unesite lozinku"
+          [disabled]="ucitavanje"
+        />
+      </div>
+
+      <button 
+        type="submit" 
+        class="btn btn-primary btn-full"
+        [disabled]="ucitavanje || !loginForm.valid"
+      >
+        @if (ucitavanje) {
+          <span>Prijavljivanje...</span>
+        } @else {
+          <span>Prijavite se</span>
+        }
+      </button>
+    </form>
+
+    <div class="login-footer">
+      <p>Nemate nalog? <a routerLink="/registracija">Registrujte se</a></p>
+    </div>
+  </div>
+</div>

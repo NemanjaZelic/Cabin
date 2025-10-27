@@ -1,0 +1,75 @@
+<div class="vikendice-container">
+  <div class="header">
+    <h2>Moje Vikendice</h2>
+    <button class="btn btn-primary" (click)="dodajNovuVikendicu()">
+      + Dodaj novu vikendicu
+    </button>
+  </div>
+
+  @if (poruka) {
+    <div class="alert alert-success">{{ poruka }}</div>
+  }
+  @if (greska) {
+    <div class="alert alert-error">{{ greska }}</div>
+  }
+
+  @if (ucitavanje) {
+    <div class="loading">
+      <p>Učitavanje vikendica...</p>
+    </div>
+  } @else {
+    @if (vikendice.length === 0) {
+      <div class="no-data">
+        <p>Nemate dodatu nijednu vikendicu.</p>
+        <button class="btn btn-primary" (click)="dodajNovuVikendicu()">
+          Dodaj prvu vikendicu
+        </button>
+      </div>
+    } @else {
+      <div class="vikendice-grid">
+        @for (vikendica of vikendice; track vikendica._id) {
+          <div class="vikendica-card">
+            @if (vikendica.images && vikendica.images.length > 0) {
+              <img [src]="getSlikaUrl(vikendica.images[0])" [alt]="vikendica.name">
+            } @else {
+              <div class="no-image">Nema slike</div>
+            }
+
+            <div class="card-content">
+              <h3>{{ vikendica.name }}</h3>
+              <p class="place">{{ vikendica.place }}</p>
+
+              <div class="rating">
+                @for (star of getRatingStars(vikendica.averageRating || 0); track $index) {
+                  @if (star === 'full') {
+                    <span class="star full">*</span>
+                  } @else if (star === 'half') {
+                    <span class="star half">*</span>
+                  } @else {
+                    <span class="star empty">*</span>
+                  }
+                }
+                <span class="rating-value">({{ vikendica.averageRating.toFixed(1) || '0.0' }})</span>
+              </div>
+
+              <div class="info">
+                <p><strong>Mesto:</strong> {{ vikendica.place }}</p>
+                <p><strong>Telefon:</strong> {{ vikendica.phone }}</p>
+                <p><strong>Cena:</strong> Leto {{ vikendica.pricing.summer }} RSD / Zima {{ vikendica.pricing.winter }} RSD</p>
+              </div>
+
+              <div class="card-actions">
+                <button class="btn btn-secondary" (click)="izmeniVikendicu(vikendica._id!)">
+                  Izmeni
+                </button>
+                <button class="btn btn-danger" (click)="obrisiVikendicu(vikendica)">
+                  Obriši
+                </button>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    }
+  }
+</div>

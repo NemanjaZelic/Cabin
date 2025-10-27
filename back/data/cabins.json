@@ -1,0 +1,87 @@
+[
+  {
+    "name": "Planinska kuća Kopaonik",
+    "place": "Kopaonik",
+    "services": "wifi,parking,klima,kuhinja,tv",
+    "pricing": {
+      "summer": 8000,
+      "winter": 10000
+    },
+    "phone": "+381603333333",
+    "coordinates": {
+      "latitude": 43.2897,
+      "longitude": 20.8125
+    },
+    "ownerUsername": "jovan",
+    "mainImage": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==",
+    "images": ["data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=="]
+  },
+  {
+    "name": "Vila Zlatibor",
+    "place": "Zlatibor",
+    "services": "wifi,parking,klima,kuhinja,tv,bazen",
+    "pricing": {
+      "summer": 12000,
+      "winter": 15000
+    },
+    "phone": "+381604444444",
+    "coordinates": {
+      "latitude": 43.7397,
+      "longitude": 19.7133
+    },
+    "ownerUsername": "milica",
+    "mainImage": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==",
+    "images": ["data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=="]
+  },
+  {
+    "name": "Koliba na Kopaoniku",
+    "place": "Kopaonik",
+    "services": "wifi,parking,kuhinja",
+    "pricing": {
+      "summer": 6000,
+      "winter": 8000
+    },
+    "phone": "+381603333333",
+    "coordinates": {
+      "latitude": 43.2850,
+      "longitude": 20.8200
+    },
+    "ownerUsername": "jovan",
+    "mainImage": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==",
+    "images": ["data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=="]
+  },
+  {
+    "name": "Apartman Stara Planina",
+    "place": "Stara Planina",
+    "services": "wifi,parking,klima,tv",
+    "pricing": {
+      "summer": 5500,
+      "winter": 7000
+    },
+    "phone": "+381603333333",
+    "coordinates": {
+      "latitude": 43.3833,
+      "longitude": 22.6167
+    },
+    "ownerUsername": "jovan",
+    "mainImage": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==",
+    "images": ["data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=="]
+  },
+  {
+    "name": "Kuća na Zlatiboru",
+    "place": "Zlatibor",
+    "services": "wifi,parking,kuhinja,tv",
+    "pricing": {
+      "summer": 7000,
+      "winter": 9000
+    },
+    "phone": "+381604444444",
+    "coordinates": {
+      "latitude": 43.7400,
+      "longitude": 19.7100
+    },
+    "ownerUsername": "milica",
+    "mainImage": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==",
+    "images": ["data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=="]
+  }
+]

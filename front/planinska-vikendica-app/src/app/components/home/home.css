@@ -1,0 +1,118 @@
+﻿.home-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 15px;
+}
+
+.hero {
+  background: #dc143c;
+  color: white;
+  padding: 30px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.statistika {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.stat-kartica {
+  border: 1px solid #ccc;
+  padding: 15px;
+  background: white;
+  flex: 1;
+  text-align: center;
+}
+
+.stat-broj {
+  font-size: 28px;
+  font-weight: bold;
+  color: #dc143c;
+}
+
+.pretraga-sekcija {
+  background: white;
+  border: 1px solid #ccc;
+  padding: 15px;
+  margin-bottom: 20px;
+}
+
+.pretraga-forma {
+  display: flex;
+  gap: 8px;
+}
+
+.input-polje {
+  flex: 1;
+}
+
+.vikendice-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+}
+
+.vikendica-card {
+  border: 1px solid #ccc;
+  background: white;
+}
+
+.card-header {
+  height: 180px;
+}
+
+.vikendica-slika {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.placeholder-slika {
+  width: 100%;
+  height: 100%;
+  background: #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #666;
+}
+
+.card-body {
+  padding: 12px;
+}
+
+.vikendica-info {
+  margin: 8px 0;
+}
+
+.cena-info {
+  display: flex;
+  justify-content: space-between;
+  margin: 4px 0;
+}
+
+.sadrzaji {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin: 8px 0;
+}
+
+.sadrzaj {
+  background: #e0e0e0;
+  padding: 3px 6px;
+  font-size: 12px;
+}
+
+.card-footer {
+  padding: 12px;
+  border-top: 1px solid #ddd;
+}
+
+.ucitavanje, .nema-rezultata {
+  text-align: center;
+  padding: 30px;
+  color: #666;
+}

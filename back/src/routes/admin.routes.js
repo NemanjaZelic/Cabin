@@ -1,0 +1,16 @@
+const express = require('express');
+const router = express.Router();
+const adminController = require('../controllers/admin.controller');
+const { protect, authorize } = require('../middleware/auth');
+router.use(protect, authorize('admin'));
+router.get('/users', adminController.getAllUsers);
+router.get('/pending-users', adminController.getPendingUsers);
+router.put('/users/:id/approve', adminController.approveUser);
+router.put('/users/:id/reject', adminController.rejectUser);
+router.put('/users/:id/deactivate', adminController.deactivateUser);
+router.put('/users/:id/activate', adminController.activateUser);
+router.put('/users/:id', adminController.updateUser);
+router.delete('/users/:id', adminController.deleteUser);
+router.get('/cabins', adminController.getAllCabinsAdmin);
+router.put('/cabins/:id/block', adminController.blockCabin);
+module.exports = router;

@@ -1,0 +1,33 @@
+{
+  "name": "planinska-vikendica-selenium-tests",
+  "version": "1.0.0",
+  "description": "Selenium testovi za Planinska Vikendica aplikaciju",
+  "scripts": {
+    "test": "node run-all-tests.js",
+    "test:old": "node test-runner.js",
+    "test:pocetna": "node tests/pocetna.test.js",
+    "test:register": "node tests/registracija.test.js",
+    "test:login": "node tests/prijava.test.js",
+    "test:password": "node tests/promena-lozinke.test.js",
+    "test:sortiranje": "node tests/sortiranje.test.js",
+    "test:profil": "node tests/profil-izmena.test.js",
+    "test:rezervacija": "node tests/rezervacija-kompletan.test.js",
+    "test:vikendica": "node tests/vikendica-dodavanje.test.js",
+    "test:komentari": "node tests/komentari-ocene.test.js",
+    "test:mapa": "node tests/dinamicka-mapa.test.js",
+    "test:kalendar": "node tests/kalendar.test.js",
+    "test:statistika": "node tests/statistika-dijagrami.test.js",
+    "test:admin-block": "node tests/admin-blokiranje.test.js",
+    "test:responsive": "node tests/responsive-dizajn.test.js",
+    "test:admin": "node tests/admin.test.js",
+    "test:turista": "node tests/turista.test.js",
+    "test:vlasnik": "node tests/vlasnik.test.js",
+    "test:all": "node test-runner.js"
+  },
+  "dependencies": {
+    "selenium-webdriver": "^4.38.0"
+  },
+  "devDependencies": {
+    "chromedriver": "^141.0.4"
+  }
+}

@@ -1,0 +1,193 @@
+<div class="detalji-container">
+  @if (ucitavanje) {
+    <div class="loading">
+      <div class="spinner"></div>
+      <p>Učitavanje...</p>
+    </div>
+  } @else if (vikendica) {
+    <button class="btn-back" (click)="nazad()">← Nazad na listu</button>
+    
+    <div class="detalji-card">
+      
+      <div class="galerija">
+        @if (vikendica.images && vikendica.images.length > 0) {
+          <div class="glavna-slika">
+            <img [src]="getSlika(trenutnaSlika)" [alt]="vikendica.name">
+            @if (vikendica.images.length > 1) {
+              <button class="nav-btn prev" (click)="prethodnaSlika()">‹</button>
+              <button class="nav-btn next" (click)="sledecaSlika()">›</button>
+            }
+          </div>
+          
+          @if (vikendica.images.length > 1) {
+            <div class="thumbnail-list">
+              @for (img of vikendica.images; track $index) {
+                <div 
+                  class="thumbnail"
+                  [class.active]="trenutnaSlika === $index"
+                  (click)="trenutnaSlika = $index">
+                  <img [src]="getSlika($index)" [alt]="vikendica.name">
+                </div>
+              }
+            </div>
+          }
+        }
+      </div>
+
+      
+      <div class="info-section">
+        <h1>{{ vikendica.name }}</h1>
+        <p class="location">{{ vikendica.place }}</p>
+        
+        <div class="rating">
+          @for (star of getRatingStars(vikendica.averageRating || 0); track $index) {
+            @if (star === 'full') {
+              <span class="star full">*</span>
+            } @else if (star === 'half') {
+              <span class="star half">*</span>
+            } @else {
+              <span class="star empty">*</span>
+            }
+          }
+          <span class="rating-value">({{ (vikendica.averageRating || 0).toFixed(1) }})</span>
+        </div>
+
+        <div class="pricing-box">
+          <div class="price-item">
+            <span class="label">Cena (Leto):</span>
+            <span class="price">{{ vikendica.pricing.summer || 0 }} RSD/noć</span>
+          </div>
+          <div class="price-item">
+            <span class="label">Cena (Zima):</span>
+            <span class="price">{{ vikendica.pricing.winter || 0 }} RSD/noć</span>
+          </div>
+        </div>
+
+        <div class="info-item">
+          <h3>Kontakt</h3>
+          <p>{{ vikendica.phone || 'N/A' }}</p>
+        </div>
+
+        <div class="info-item">
+          <h3>Sadržaji</h3>
+          <p>{{ vikendica.services || 'N/A' }}</p>
+        </div>
+
+        <div class="info-item">
+          <h3>Lokacija</h3>
+          <p>{{ vikendica.place }}</p>
+          @if (vikendica.coordinates) {
+            <p class="coordinates">Lat: {{ vikendica.coordinates.latitude }}, Lon: {{ vikendica.coordinates.longitude }}</p>
+          }
+        </div>
+
+        
+        @if (poruka) {
+          <div class="alert alert-success">{{ poruka }}</div>
+        }
+        @if (greska) {
+          <div class="alert alert-error">{{ greska }}</div>
+        }
+
+        
+        @if (!vikendica.isBlocked) {
+          @if (!prikaziRezervaciju) {
+            <button class="btn btn-primary btn-large" (click)="prikaziRezervaciju = true">
+              Rezerviši sada
+            </button>
+          } @else {
+            
+            <div class="rezervacija-forma">
+              <h3>Kreiraj rezervaciju</h3>
+              
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="datumOd">Datum od *</label>
+                  <input type="date" id="datumOd" [(ngModel)]="datumOd" required>
+                </div>
+                
+                <div class="form-group">
+                  <label for="datumDo">Datum do *</label>
+                  <input type="date" id="datumDo" [(ngModel)]="datumDo" required>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="brojOdraslih">Broj odraslih *</label>
+                  <input type="number" id="brojOdraslih" [(ngModel)]="brojOdraslih" min="1" required>
+                </div>
+                
+                <div class="form-group">
+                  <label for="brojDece">Broj dece</label>
+                  <input type="number" id="brojDece" [(ngModel)]="brojDece" min="0">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="kreditnaKartica">Broj kreditne kartice *</label>
+                <input type="text" id="kreditnaKartica" [(ngModel)]="kreditnaKartica" 
+                       placeholder="xxxx xxxx xxxx xxxx" required>
+              </div>
+
+              <div class="form-group">
+                <label for="posebniZahtevi">Posebni zahtevi (opciono)</label>
+                <textarea id="posebniZahtevi" [(ngModel)]="posebniZahtevi" 
+                          rows="3" placeholder="Unesite posebne zahteve..."></textarea>
+              </div>
+
+              <div class="form-actions">
+                <button class="btn btn-primary" (click)="rezervisi()" [disabled]="cuvanje">
+                  @if (cuvanje) {
+                    <span>Rezervisanje...</span>
+                  } @else {
+                    <span>Potvrdi rezervaciju</span>
+                  }
+                </button>
+                <button class="btn btn-secondary" (click)="prikaziRezervaciju = false; resetujFormu()">
+                  Otkaži
+                </button>
+              </div>
+            </div>
+          }
+        } @else {
+          <div class="alert alert-error">
+            Ova vikendica je trenutno blokirana i ne može se rezervisati.
+          </div>
+        }
+      </div>
+    </div>
+
+    
+    <div class="komentari-section">
+      <h2>💬 Komentari i Ocene</h2>
+      
+      @if (komentari.length === 0) {
+        <p class="no-comments">Nema komentara za ovu vikendicu.</p>
+      } @else {
+        <div class="komentari-lista">
+          @for (komentar of komentari; track komentar._id) {
+            <div class="komentar-card">
+              <div class="komentar-header">
+                <div class="korisnik-info">
+                  <strong>{{ komentar.tourist }}</strong>
+                </div>
+                <div class="komentar-rating">
+                  @for (star of getRatingStars(komentar.rating); track $index) {
+                    @if (star === 'full') {
+                      <span class="star full">*</span>
+                    } @else {
+                      <span class="star empty">*</span>
+                    }
+                  }
+                </div>
+              </div>
+              <p class="komentar-text">{{ komentar.text }}</p>
+              <small class="komentar-datum">{{ komentar.createdAt | date: 'dd.MM.yyyy HH:mm' }}</small>
+            </div>
+          }
+        </div>
+      }
+    </div>
+  }
+</div>

@@ -1,0 +1,35 @@
+[
+  {
+    "touristUsername": "marko",
+    "cabinName": "Planinska kuća Kopaonik",
+    "startDate": "2025-12-20",
+    "endDate": "2025-12-27",
+    "adults": 2,
+    "children": 1,
+    "totalPrice": 56000,
+    "status": "confirmed",
+    "creditCard": "4532444455556666"
+  },
+  {
+    "touristUsername": "ana",
+    "cabinName": "Vila Zlatibor",
+    "startDate": "2025-11-15",
+    "endDate": "2025-11-18",
+    "adults": 2,
+    "children": 0,
+    "totalPrice": 36000,
+    "status": "pending",
+    "creditCard": "5412777788889999"
+  },
+  {
+    "touristUsername": "marko",
+    "cabinName": "Koliba na Kopaoniku",
+    "startDate": "2025-01-10",
+    "endDate": "2025-01-15",
+    "adults": 3,
+    "children": 1,
+    "totalPrice": 30000,
+    "status": "confirmed",
+    "creditCard": "4532444455556666"
+  }
+]

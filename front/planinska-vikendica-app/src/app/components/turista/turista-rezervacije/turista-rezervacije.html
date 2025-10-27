@@ -1,0 +1,152 @@
+<div class="rezervacije-container">
+  <h2>Moje Rezervacije</h2>
+
+  @if (poruka) {
+    <div class="alert alert-success">{{ poruka }}</div>
+  }
+  @if (greska) {
+    <div class="alert alert-error">{{ greska }}</div>
+  }
+
+  
+  <div class="tabs">
+    <button 
+      [class.active]="aktivniTab === 'trenutne'"
+      (click)="aktivniTab = 'trenutne'">
+      Trenutne rezervacije ({{ trenutneRezervacije.length }})
+    </button>
+    <button 
+      [class.active]="aktivniTab === 'arhivirane'"
+      (click)="aktivniTab = 'arhivirane'">
+      Arhiva ({{ arhiviraneRezervacije.length }})
+    </button>
+  </div>
+
+  @if (ucitavanje) {
+    <div class="loading">
+      <p>Učitavanje rezervacija...</p>
+    </div>
+  } @else {
+    
+    @if (aktivniTab === 'trenutne') {
+      @if (trenutneRezervacije.length === 0) {
+        <div class="no-data">
+          <p>Nemate trenutnih rezervacija.</p>
+          <button class="btn btn-primary" (click)="prikaziVikendicu('')">Pretraži vikendice</button>
+        </div>
+      } @else {
+        <div class="rezervacije-lista">
+          @for (rez of trenutneRezervacije; track rez._id) {
+            <div class="rezervacija-card">
+              <div class="card-header">
+                <h3>{{ rez.cabin.name || 'Vikendica' }}</h3>
+                <span class="status-badge" [style.background]="getStatusBoja(rez.status)">
+                  {{ getStatusTekst(rez.status) }}
+                </span>
+              </div>
+
+              <div class="card-body">
+                <div class="info-row">
+                  <span class="label">Lokacija:</span>
+                  <span class="value">{{ rez.cabin.place || 'N/A' }}</span>
+                </div>
+
+                <div class="info-row">
+                  <span class="label">Datum dolaska:</span>
+                  <span class="value">{{ rez.startDate | date: 'dd.MM.yyyy' }}</span>
+                </div>
+
+                <div class="info-row">
+                  <span class="label">Datum odlaska:</span>
+                  <span class="value">{{ rez.endDate | date: 'dd.MM.yyyy' }}</span>
+                </div>
+
+                <div class="info-row">
+                  <span class="label">Osobe:</span>
+                  <span class="value">{{ rez.adults }} odraslih, {{ rez.children }} dece</span>
+                </div>
+
+                <div class="info-row">
+                  <span class="label">Ukupna cena:</span>
+                  <span class="value price">{{ rez.totalPrice }} RSD</span>
+                </div>
+
+                @if (rez.specialRequests) {
+                  <div class="info-row">
+                    <span class="label">Posebni zahtevi:</span>
+                    <span class="value">{{ rez.specialRequests }}</span>
+                  </div>
+                }
+
+                @if (rez.rejectionReason) {
+                  <div class="info-row rejection">
+                    <span class="label">Razlog odbijanja:</span>
+                    <span class="value">{{ rez.rejectionReason }}</span>
+                  </div>
+                }
+              </div>
+
+              <div class="card-actions">
+                <button class="btn btn-secondary" (click)="prikaziVikendicu(rez.cabin._id || rez.cabin)">
+                  Prikaži vikendicu
+                </button>
+                @if (mozeOtkazati(rez)) {
+                  <button class="btn btn-danger" (click)="otkaziRezervaciju(rez)">
+                    Otkaži rezervaciju
+                  </button>
+                }
+              </div>
+            </div>
+          }
+        </div>
+      }
+    }
+
+    
+    @if (aktivniTab === 'arhivirane') {
+      @if (arhiviraneRezervacije.length === 0) {
+        <div class="no-data">
+          <p>Nemate arhiviranih rezervacija.</p>
+        </div>
+      } @else {
+        <div class="rezervacije-lista">
+          @for (rez of arhiviraneRezervacije; track rez._id) {
+            <div class="rezervacija-card">
+              <div class="card-header">
+                <h3>{{ rez.cabin.name || 'Vikendica' }}</h3>
+                <span class="status-badge" [style.background]="getStatusBoja(rez.status)">
+                  {{ getStatusTekst(rez.status) }}
+                </span>
+              </div>
+
+              <div class="card-body">
+                <div class="info-row">
+                  <span class="label">Lokacija:</span>
+                  <span class="value">{{ rez.cabin.place || 'N/A' }}</span>
+                </div>
+
+                <div class="info-row">
+                  <span class="label">Period:</span>
+                  <span class="value">
+                    {{ rez.startDate | date: 'dd.MM.yyyy' }} - {{ rez.endDate | date: 'dd.MM.yyyy' }}
+                  </span>
+                </div>
+
+                <div class="info-row">
+                  <span class="label">Cena:</span>
+                  <span class="value price">{{ rez.totalPrice }} RSD</span>
+                </div>
+              </div>
+
+              <div class="card-actions">
+                <button class="btn btn-secondary" (click)="prikaziVikendicu(rez.cabin._id || rez.cabin)">
+                  Prikaži vikendicu
+                </button>
+              </div>
+            </div>
+          }
+        </div>
+      }
+    }
+  }
+</div>

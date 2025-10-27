@@ -1,0 +1,26 @@
+[
+  {
+    "naziv": "Planinska koliba",
+    "mesto": "Zlatibor",
+    "opis": "Prelepa koliba sa pogledom na planinu",
+    "cenaLetnja": 80,
+    "cenaZimska": 120,
+    "brojKreveta": 4,
+    "brojSoba": 2,
+    "lat": 43.7295,
+    "lng": 19.7159,
+    "telefon": "0641234567"
+  },
+  {
+    "naziv": "Šumski raj",
+    "mesto": "Kopaonik",
+    "opis": "Mirna vikendica u srcu prirode",
+    "cenaLetnja": 100,
+    "cenaZimska": 150,
+    "brojKreveta": 6,
+    "brojSoba": 3,
+    "lat": 43.2893,
+    "lng": 20.8112,
+    "telefon": "0647654321"
+  }
+]

@@ -1,0 +1,141 @@
+<div class="home-container">
+  
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Dobrodošli u Planinske Vikendice</h1>
+      <p>Pronađite savršeno mesto za vaš odmor u planinama Srbije</p>
+    </div>
+  </section>
+
+  
+  @if (statistika) {
+    <section class="statistika">
+      <div class="stat-kartica">
+        <div class="stat-ikonica"></div>
+        <div class="stat-broj">{{ statistika.totalCabins }}</div>
+        <div class="stat-naziv">Ukupno vikendica</div>
+      </div>
+      
+      <div class="stat-kartica">
+        <div class="stat-ikonica"></div>
+        <div class="stat-broj">{{ statistika.totalOwners }}</div>
+        <div class="stat-naziv">Registrovanih vlasnika</div>
+      </div>
+      
+      <div class="stat-kartica">
+        <div class="stat-ikonica"></div>
+        <div class="stat-broj">{{ statistika.totalTourists }}</div>
+        <div class="stat-naziv">Registrovanih turista</div>
+      </div>
+      
+      <div class="stat-kartica highlight">
+        <div class="stat-naziv-mali">Rezervacije</div>
+        <div class="rezervacije-grid">
+          <div>
+            <div class="stat-broj-mali">{{ statistika.reservations24h }}</div>
+            <div class="stat-period">24h</div>
+          </div>
+          <div>
+            <div class="stat-broj-mali">{{ statistika.reservations7d }}</div>
+            <div class="stat-period">7 dana</div>
+          </div>
+          <div>
+            <div class="stat-broj-mali">{{ statistika.reservations30d }}</div>
+            <div class="stat-period">30 dana</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  }
+
+  
+  <section class="pretraga-sekcija">
+    <h2>Pretražite vikendice</h2>
+    <div class="pretraga-forma">
+      <input 
+        type="text" 
+        [(ngModel)]="naziv" 
+        placeholder="Naziv vikendice"
+        class="input-polje"
+      />
+      
+      <input 
+        type="text" 
+        [(ngModel)]="mesto" 
+        placeholder="Mesto"
+        class="input-polje"
+      />
+      
+      <button (click)="pretrazi()" class="btn btn-primary">
+        Pretraži
+      </button>
+      
+      <button (click)="resetujPretragu()" class="btn btn-secondary">
+        Resetuj
+      </button>
+    </div>
+  </section>
+
+  
+  <section class="vikendice-sekcija">
+    <h2>Dostupne vikendice</h2>
+    
+    @if (ucitavanje) {
+      <div class="ucitavanje">Učitavanje...</div>
+    } @else if (vikendice.length === 0) {
+      <div class="nema-rezultata">Nema pronađenih vikendica</div>
+    } @else {
+      <div class="vikendice-grid">
+        @for (vikendica of vikendice; track vikendica._id) {
+          <div class="vikendica-card">
+            <div class="card-header">
+              @if (vikendica.mainImage) {
+                <img 
+                  [src]="vikendica.mainImage" 
+                  [alt]="vikendica.name"
+                  class="vikendica-slika"
+                />
+              } @else {
+                <div class="placeholder-slika">Nema slike</div>
+              }
+            </div>
+            
+            <div class="card-body">
+              <h3 class="vikendica-naziv">{{ vikendica.name }}</h3>
+              <p class="vikendica-mesto">{{ vikendica.place }}</p>
+              
+              <div class="vikendica-info">
+                <div class="cena-info">
+                  <span class="cena-label">Leto:</span>
+                  <span class="cena">{{ vikendica.pricing.summer }} RSD</span>
+                </div>
+                <div class="cena-info">
+                  <span class="cena-label">Zima:</span>
+                  <span class="cena">{{ vikendica.pricing.winter }} RSD</span>
+                </div>
+              </div>
+              
+              <div class="ocena">
+                <span class="zvezdice">{{ getZvezdice(vikendica.averageRating) }}</span>
+                <span class="ocena-broj">({{ vikendica.averageRating.toFixed(1) }})</span>
+              </div>
+              
+              <div class="sadrzaji">
+                @if (vikendica.services.includes('wifi')) { <span class="sadrzaj">WiFi</span> }
+                @if (vikendica.services.includes('parking')) { <span class="sadrzaj">Parking</span> }
+                @if (vikendica.services.includes('klima')) { <span class="sadrzaj">Klima</span> }
+                @if (vikendica.services.includes('kuhinja')) { <span class="sadrzaj">Kuhinja</span> }
+              </div>
+            </div>
+            
+            <div class="card-footer">
+              <a [routerLink]="['/turista/vikendica', vikendica._id]" class="btn btn-primary">
+                Pogledaj detalje
+              </a>
+            </div>
+          </div>
+        }
+      </div>
+    }
+  </section>
+</div>

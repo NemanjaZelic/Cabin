@@ -1,0 +1,38 @@
+﻿.form-container {
+  max-width: 700px;
+  margin: 20px auto;
+  background: white;
+  border: 1px solid #ccc;
+  padding: 20px;
+}
+
+.form-group {
+  margin-bottom: 12px;
+}
+
+label {
+  display: block;
+  margin-bottom: 4px;
+}
+
+input, textarea, select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #999;
+}
+
+button {
+  padding: 10px 15px;
+  margin: 5px;
+}
+
+.image-preview img {
+  max-width: 80px;
+  border: 1px solid #999;
+  margin: 5px;
+}
+
+.checkbox-label {
+  display: inline-block;
+  margin-right: 15px;
+}

@@ -1,0 +1,153 @@
+<div class="vikendice-container">
+  <h2>Planinske Vikendice</h2>
+  
+  
+  <div class="search-panel">
+    <div class="search-inputs">
+      <div class="input-group">
+        <label>Pretraga po nazivu</label>
+        <input 
+          type="text" 
+          [(ngModel)]="pretragaNaziv"
+          placeholder="Unesite naziv vikendice..."
+          (keyup.enter)="pretrazi()">
+      </div>
+      
+      <div class="input-group">
+        <label>Pretraga po mestu</label>
+        <input 
+          type="text" 
+          [(ngModel)]="pretragaMesto"
+          placeholder="Unesite mesto..."
+          (keyup.enter)="pretrazi()">
+      </div>
+    </div>
+    
+    <div class="sort-controls">
+      <div class="input-group">
+        <label>Sortiraj po:</label>
+        <select [(ngModel)]="sortBy" (change)="sortiraj()">
+          <option value="name">Nazivu</option>
+          <option value="place">Mestu</option>
+          <option value="averageRating">Oceni</option>
+          <option value="createdAt">Datumu</option>
+        </select>
+      </div>
+      
+      <div class="input-group">
+        <label>Redosled:</label>
+        <select [(ngModel)]="sortOrder" (change)="sortiraj()">
+          <option value="asc">Rastući</option>
+          <option value="desc">Opadajući</option>
+        </select>
+      </div>
+    </div>
+    
+    <div class="search-actions">
+      <button class="btn btn-primary" (click)="pretrazi()">Pretraži</button>
+      <button class="btn btn-secondary" (click)="ocistiPretragu()">Očisti</button>
+    </div>
+  </div>
+
+  
+  @if (greska) {
+    <div class="alert alert-error">{{ greska }}</div>
+  }
+
+  
+  @if (ucitavanje) {
+    <div class="loading">
+      <div class="spinner"></div>
+      <p>Učitavanje vikendica...</p>
+    </div>
+  }
+
+  
+  @if (!ucitavanje) {
+    <div class="results-info">
+      <p>Prikazano: <strong>{{ filtriranVikendice.length }}</strong> vikendica</p>
+    </div>
+
+    @if (filtriranVikendice.length === 0) {
+      <div class="no-results">
+        <p>Nema rezultata za zadatu pretragu.</p>
+        <button class="btn btn-primary" (click)="ocistiPretragu()">Prikaži sve vikendice</button>
+      </div>
+    } @else {
+      
+      <div class="vikendice-grid">
+        @for (vikendica of getPaginiraneVikendice(); track vikendica._id) {
+          <div class="vikendica-card" (click)="prikaziDetalje(vikendica)">
+            <div class="card-image">
+              <img [src]="getPrvaSlika(vikendica)" [alt]="vikendica.name">
+              @if (vikendica.isBlocked) {
+                <div class="blocked-badge">Blokirana</div>
+              }
+            </div>
+            
+            <div class="card-content">
+              <h3>{{ vikendica.name }}</h3>
+              <p class="location">{{ vikendica.place }}</p>
+              
+              <div class="rating">
+                @for (star of getRatingStars(vikendica.averageRating); track $index) {
+                  @if (star === 'full') {
+                    <span class="star full">*</span>
+                  } @else if (star === 'half') {
+                    <span class="star half">*</span>
+                  } @else {
+                    <span class="star empty">*</span>
+                  }
+                }
+                <span class="rating-value">({{ vikendica.averageRating.toFixed(1) }})</span>
+              </div>
+              
+              <div class="pricing">
+                <div class="price-item">
+                  <span class="label">Leto:</span>
+                  <span class="value">{{ vikendica.pricing.summer }} RSD</span>
+                </div>
+                <div class="price-item">
+                  <span class="label">Zima:</span>
+                  <span class="value">{{ vikendica.pricing.winter }} RSD</span>
+                </div>
+              </div>
+              
+              <p class="services">{{ vikendica.services }}</p>
+              
+              <button class="btn btn-view">Pogledaj detalje</button>
+            </div>
+          </div>
+        }
+      </div>
+
+      
+      @if (getBrojStranica() > 1) {
+        <div class="pagination">
+          <button 
+            class="btn-page"
+            [disabled]="trenutnaStranica === 1"
+            (click)="idiNaStranicu(trenutnaStranica - 1)">
+            ← Prethodna
+          </button>
+          
+          @for (stranica of getStranice(); track stranica) {
+            <button 
+              class="btn-page"
+              [class.active]="stranica === trenutnaStranica"
+              (click)="idiNaStranicu(stranica)">
+              {{ stranica }}
+            </button>
+          }
+          
+          <button 
+            class="btn-page"
+            [disabled]="trenutnaStranica === getBrojStranica()"
+            (click)="idiNaStranicu(trenutnaStranica + 1)">
+            Sledeća →
+          </button>
+        </div>
+      }
+    }
+  }
+</div>

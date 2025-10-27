@@ -1,0 +1,32 @@
+.container {
+  max-width: 900px;
+  margin: 20px auto;
+  padding: 15px;
+}
+
+.card, .rezervacija-card {
+  border: 1px solid #ccc;
+  padding: 12px;
+  margin: 10px 0;
+  background: white;
+}
+
+.info-row {
+  margin: 6px 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.tab-buttons {
+  display: flex;
+  gap: 5px;
+  margin-bottom: 15px;
+}
+
+.tab-buttons button {
+  padding: 8px 15px;
+}
+
+.tab-buttons button.active {
+  background: #dc143c;
+}

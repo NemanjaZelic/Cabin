@@ -1,0 +1,314 @@
+.detalji-container {
+  max-width: 900px;
+  margin: 10px auto;
+  padding: 8px;
+}
+
+.btn-back {
+  background: #666;
+  color: white;
+  border: 1px solid black;
+  padding: 5px 10px;
+  margin-bottom: 8px;
+}
+
+.loading {
+  text-align: center;
+  padding: 20px;
+}
+
+.detalji-card {
+  background: white;
+  border: 1px solid black;
+  padding: 8px;
+  margin-bottom: 8px;
+}
+
+.galerija {
+  width: 100%;
+  margin-bottom: 8px;
+}
+
+.glavna-slika {
+  width: 100%;
+  height: 300px;
+  border: 1px solid black;
+  margin-bottom: 5px;
+}
+
+.glavna-slika img {
+  width: 100%;
+  height: 100%;
+}
+
+.nav-btn {
+  position: absolute;
+  top: 50%;
+  background: black;
+  color: white;
+  border: none;
+  font-size: 16px;
+  padding: 4px 8px;
+}
+
+.nav-btn.prev {
+  left: 0;
+}
+
+.nav-btn.next {
+  right: 0;
+}
+
+.thumbnail-list {
+  display: flex;
+  gap: 4px;
+  overflow-x: auto;
+}
+
+.thumbnail {
+  width: 60px;
+  height: 60px;
+  border: 1px solid black;
+}
+
+.thumbnail.active {
+  border: 2px solid black;
+}
+
+.thumbnail img {
+  width: 100%;
+  height: 100%;
+}
+
+.info-section {
+  padding: 5px;
+}
+
+.info-section h1 {
+  margin: 0 0 5px 0;
+  font-size: 20px;
+}
+
+.location {
+  color: #555;
+  margin: 0 0 5px 0;
+  font-size: 14px;
+}
+
+.rating {
+  margin-bottom: 8px;
+}
+
+.star {
+  font-size: 14px;
+}
+
+.star.full {
+  color: black;
+}
+
+.star.empty {
+  color: #ccc;
+}
+
+.rating-value {
+  margin-left: 3px;
+  color: #555;
+  font-size: 14px;
+}
+
+.pricing-box {
+  border: 1px solid black;
+  padding: 8px;
+  margin-bottom: 8px;
+}
+
+.price-item {
+  display: inline-block;
+  margin-right: 15px;
+}
+
+.price-item .label {
+  font-size: 11px;
+  margin-right: 3px;
+}
+
+.price-item .price {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.info-item {
+  margin-bottom: 8px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 5px;
+}
+
+.info-item h3 {
+  font-size: 14px;
+  margin-bottom: 3px;
+}
+
+.info-item p {
+  color: #555;
+  font-size: 13px;
+  line-height: 1.2;
+}
+
+.alert {
+  padding: 6px;
+  border: 1px solid;
+  margin-bottom: 8px;
+  font-size: 13px;
+}
+
+.alert-success {
+  background: #ddd;
+  color: black;
+  border-color: black;
+}
+
+.alert-error {
+  background: #ddd;
+  color: black;
+  border-color: black;
+}
+
+.btn {
+  padding: 6px 10px;
+  border: 1px solid black;
+  font-size: 13px;
+}
+
+.btn-primary {
+  background: #666;
+  color: white;
+}
+
+.btn-primary:disabled {
+  opacity: 0.5;
+}
+
+.btn-secondary {
+  background: white;
+  color: black;
+}
+
+.btn-large {
+  width: 100%;
+  padding: 8px;
+  font-size: 14px;
+}
+
+.rezervacija-forma {
+  background: #f5f5f5;
+  padding: 8px;
+  border: 1px solid black;
+  margin-top: 8px;
+}
+
+.rezervacija-forma h3 {
+  margin: 0 0 8px 0;
+  font-size: 15px;
+}
+
+.form-group {
+  margin-bottom: 8px;
+}
+
+.form-row {
+  display: block;
+}
+
+.form-row .form-group {
+  margin-bottom: 8px;
+}
+
+label {
+  display: block;
+  margin-bottom: 2px;
+  font-size: 13px;
+}
+
+input[type="text"],
+input[type="date"],
+input[type="number"],
+textarea {
+  width: 100%;
+  padding: 4px;
+  border: 1px solid black;
+  font-size: 13px;
+}
+
+textarea {
+  resize: vertical;
+}
+
+.form-actions {
+  display: flex;
+  gap: 5px;
+  margin-top: 8px;
+}
+
+.form-actions .btn {
+  flex: 1;
+}
+
+.komentari-section {
+  background: white;
+  border: 1px solid black;
+  padding: 8px;
+  margin-top: 8px;
+}
+
+.komentari-section h2 {
+  margin: 0 0 8px 0;
+  font-size: 16px;
+}
+
+.no-comments {
+  text-align: center;
+  color: #888;
+  padding: 10px;
+  font-size: 13px;
+}
+
+.komentari-lista {
+  display: block;
+}
+
+.komentar-card {
+  background: #f5f5f5;
+  padding: 6px;
+  border: 1px solid #999;
+  margin-bottom: 6px;
+}
+
+.komentar-header {
+  margin-bottom: 4px;
+}
+
+.korisnik-info strong {
+  font-size: 12px;
+}
+
+.komentar-rating {
+  float: right;
+}
+
+.komentar-rating .star {
+  font-size: 11px;
+}
+
+.komentar-text {
+  color: #555;
+  margin: 0 0 3px 0;
+  font-size: 12px;
+  line-height: 1.2;
+  clear: both;
+}
+
+.komentar-datum {
+  color: #888;
+  font-size: 10px;
+}

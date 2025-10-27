@@ -1,0 +1,47 @@
+﻿.container {
+  max-width: 900px;
+  margin: 20px auto;
+  padding: 15px;
+}
+
+.card {
+  border: 1px solid #ccc;
+  padding: 12px;
+  margin: 10px 0;
+  background: white;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 6px;
+  border: 1px solid #999;
+}
+
+button {
+  padding: 8px 12px;
+  margin: 5px;
+}
+
+.search-panel {
+  background: white;
+  border: 1px solid #ccc;
+  padding: 12px;
+  margin-bottom: 15px;
+}
+
+.vikendice-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.vikendica-card {
+  border: 1px solid #ccc;
+  background: white;
+  padding: 10px;
+}
+
+img {
+  max-width: 150px;
+  border: 1px solid #999;
+}

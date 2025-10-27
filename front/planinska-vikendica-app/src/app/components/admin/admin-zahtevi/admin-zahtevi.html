@@ -1,0 +1,79 @@
+<div class="zahtevi-container">
+  <h2>Zahtevi za registraciju</h2>
+
+  @if (poruka) {
+    <div class="alert alert-success">{{ poruka }}</div>
+  }
+  @if (greska) {
+    <div class="alert alert-error">{{ greska }}</div>
+  }
+
+  @if (ucitavanje) {
+    <div class="loading">
+      <p>Učitavanje zahteva...</p>
+    </div>
+  } @else {
+    @if (zahtevi.length === 0) {
+      <div class="no-data">
+        <p>Nema novih zahteva za registraciju.</p>
+      </div>
+    } @else {
+      <div class="zahtevi-grid">
+        @for (korisnik of zahtevi; track korisnik._id) {
+          <div class="zahtev-card">
+            <div class="card-header">
+              <img [src]="getProfilnaSlika(korisnik)" alt="Profilna slika">
+              <div class="header-info">
+                <h3>{{ korisnik.username }}</h3>
+                <span class="role-badge">{{ getUlogaTekst(korisnik.role) }}</span>
+              </div>
+            </div>
+
+            <div class="card-body">
+              <div class="info-row">
+                <span class="label">Ime i prezime:</span>
+                <span class="value">{{ korisnik.firstName }} {{ korisnik.lastName }}</span>
+              </div>
+
+              <div class="info-row">
+                <span class="label">Email:</span>
+                <span class="value">{{ korisnik.email }}</span>
+              </div>
+
+              <div class="info-row">
+                <span class="label">Telefon:</span>
+                <span class="value">{{ korisnik.phone || 'N/A' }}</span>
+              </div>
+
+              <div class="info-row">
+                <span class="label">Adresa:</span>
+                <span class="value">{{ korisnik.address || 'N/A' }}</span>
+              </div>
+
+              <div class="info-row">
+                <span class="label">Pol:</span>
+                <span class="value">{{ korisnik.gender === 'M' ? 'Muški' : 'Ženski' }}</span>
+              </div>
+
+              @if (korisnik.creditCard) {
+                <div class="info-row">
+                  <span class="label">Kreditna kartica:</span>
+                  <span class="value">**** **** **** {{ korisnik.creditCard.slice(-4) }}</span>
+                </div>
+              }
+            </div>
+
+            <div class="card-actions">
+              <button class="btn btn-success" (click)="odobri(korisnik)">
+                ✓ Odobri
+              </button>
+              <button class="btn btn-danger" (click)="odbij(korisnik)">
+                ✕ Odbij
+              </button>
+            </div>
+          </div>
+        }
+      </div>
+    }
+  }
+</div>

@@ -1,0 +1,197 @@
+<div class="forma-container">
+  <h2>{{ jeIzmena ? 'Izmena vikendice' : 'Nova vikendica' }}</h2>
+
+  @if (poruka) {
+    <div class="alert alert-success">{{ poruka }}</div>
+  }
+  @if (greska) {
+    <div class="alert alert-error">{{ greska }}</div>
+  }
+
+  @if (ucitavanje && jeIzmena) {
+    <div class="loading">
+      <p>Učitavanje vikendice...</p>
+    </div>
+  } @else {
+    <form class="vikendica-forma" (ngSubmit)="sacuvaj()">
+      
+      
+      <div class="section">
+        <h3>Osnovni podaci</h3>
+
+        <div class="form-group">
+          <label>Naziv vikendice: *</label>
+          <input 
+            type="text" 
+            [(ngModel)]="naziv"
+            name="naziv"
+            placeholder="Npr. Planinska kuća Kopaonik"
+            required>
+        </div>
+
+        <div class="form-group">
+          <label>Mesto: *</label>
+          <input 
+            type="text" 
+            [(ngModel)]="mesto"
+            name="mesto"
+            placeholder="Npr. Kopaonik"
+            required>
+        </div>
+
+        <div class="form-group">
+          <label>Telefon: *</label>
+          <input 
+            type="tel" 
+            [(ngModel)]="telefon"
+            name="telefon"
+            placeholder="Npr. +381601234567"
+            required>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Cena leto (RSD): *</label>
+            <input 
+              type="number" 
+              [(ngModel)]="cenaLeto"
+              name="cenaLeto"
+              min="0"
+              placeholder="Npr. 8000"
+              required>
+          </div>
+
+          <div class="form-group">
+            <label>Cena zima (RSD): *</label>
+            <input 
+              type="number" 
+              [(ngModel)]="cenaZima"
+              name="cenaZima"
+              min="0"
+              placeholder="Npr. 10000"
+              required>
+          </div>
+        </div>
+      </div>
+
+      
+      <div class="section">
+        <h3>Lokacija</h3>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Geografska širina (latitude):</label>
+            <input 
+              type="number" 
+              [(ngModel)]="latitude"
+              name="latitude"
+              step="0.000001"
+              placeholder="Npr. 43.2897">
+          </div>
+
+          <div class="form-group">
+            <label>Geografska dužina (longitude):</label>
+            <input 
+              type="number" 
+              [(ngModel)]="longitude"
+              name="longitude"
+              step="0.000001"
+              placeholder="Npr. 20.6578">
+          </div>
+        </div>
+      </div>
+
+      
+      <div class="section">
+        <h3>Usluge i sadržaji</h3>
+
+        <div class="checkbox-grid">
+          <label class="checkbox-label">
+            <input type="checkbox" [(ngModel)]="wifi" name="wifi">
+            <span>WiFi</span>
+          </label>
+
+          <label class="checkbox-label">
+            <input type="checkbox" [(ngModel)]="parking" name="parking">
+            <span>Parking</span>
+          </label>
+
+          <label class="checkbox-label">
+            <input type="checkbox" [(ngModel)]="klima" name="klima">
+            <span>Klima uređaj</span>
+          </label>
+
+          <label class="checkbox-label">
+            <input type="checkbox" [(ngModel)]="kuhinja" name="kuhinja">
+            <span>Kuhinja</span>
+          </label>
+
+          <label class="checkbox-label">
+            <input type="checkbox" [(ngModel)]="tv" name="tv">
+            <span>TV</span>
+          </label>
+
+          <label class="checkbox-label">
+            <input type="checkbox" [(ngModel)]="bazen" name="bazen">
+            <span>🏊 Bazen</span>
+          </label>
+        </div>
+      </div>
+
+      
+      <div class="section">
+        <h3>Slike vikendice</h3>
+
+        <div class="form-group">
+          <label>Dodaj slike: {{ !jeIzmena ? '*' : '' }}</label>
+          <input 
+            type="file" 
+            accept="image/*"
+            multiple
+            (change)="onFilesSelected($event)">
+          <small>Možete izabrati više slika odjednom (max 2MB po slici)</small>
+        </div>
+
+        
+        @if (postojeceSlike.length > 0) {
+          <div class="slike-grid">
+            <h4>Postojeće slike:</h4>
+            @for (slika of postojeceSlike; track $index) {
+              <div class="slika-preview">
+                <img [src]="getSlikaUrl(slika)" alt="Slika vikendice">
+                <button type="button" class="remove-btn" (click)="ukloniPostojecuSliku($index)">
+                  ✕
+                </button>
+              </div>
+            }
+          </div>
+        }
+
+        
+        @if (imagePreviewUrls.length > 0) {
+          <div class="slike-grid">
+            <h4>Nove slike:</h4>
+            @for (url of imagePreviewUrls; track $index) {
+              <div class="slika-preview">
+                <img [src]="url" alt="Nova slika">
+                <button type="button" class="remove-btn" (click)="ukloniNovuSliku($index)">
+                  ✕
+                </button>
+              </div>
+            }
+          </div>
+        }
+      </div>
+
+      
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary" [disabled]="ucitavanje">
+          {{ ucitavanje ? 'Čuvanje...' : (jeIzmena ? 'Sačuvaj izmene' : 'Kreiraj vikendicu') }}
+        </button>
+        <button type="button" class="btn btn-secondary" (click)="otkazi()">
+          Otkaži
+        </button>
+      </div>
+    </form>
+  }
+</div>

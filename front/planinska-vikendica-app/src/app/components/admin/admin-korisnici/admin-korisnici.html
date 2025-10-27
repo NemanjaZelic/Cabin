@@ -1,0 +1,77 @@
+<div class="korisnici-container">
+  <h2>Upravljanje korisnicima</h2>
+
+  @if (poruka) {
+    <div class="alert alert-success">{{ poruka }}</div>
+  }
+  @if (greska) {
+    <div class="alert alert-error">{{ greska }}</div>
+  }
+
+  @if (ucitavanje) {
+    <div class="loading">
+      <p>Učitavanje korisnika...</p>
+    </div>
+  } @else {
+    @if (korisnici.length === 0) {
+      <div class="no-data">
+        <p>Nema registrovanih korisnika.</p>
+      </div>
+    } @else {
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Korisničko ime</th>
+              <th>Ime i prezime</th>
+              <th>Email</th>
+              <th>Uloga</th>
+              <th>Status</th>
+              <th>Telefon</th>
+              <th>Akcije</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (korisnik of korisnici; track korisnik._id) {
+              <tr>
+                <td>{{ korisnik.username }}</td>
+                <td>{{ korisnik.firstName }} {{ korisnik.lastName }}</td>
+                <td>{{ korisnik.email }}</td>
+                <td>
+                  <span class="role-badge" [class.admin]="korisnik.role === 'admin'">
+                    {{ getUlogaTekst(korisnik.role) }}
+                  </span>
+                </td>
+                <td>
+                  <span class="status-badge" [style.background]="getStatusBoja(korisnik.status)">
+                    {{ getStatusTekst(korisnik.status) }}
+                  </span>
+                </td>
+                <td>{{ korisnik.phone || 'N/A' }}</td>
+                <td>
+                  <div class="action-buttons">
+                    @if (korisnik.role !== 'admin') {
+                      @if (korisnik.status === 'active') {
+                        <button class="btn btn-danger btn-sm" (click)="deaktivirajKorisnika(korisnik)">
+                          Deaktiviraj
+                        </button>
+                      }
+                      @if (korisnik.status === 'deactivated') {
+                        <button class="btn btn-success btn-sm" (click)="aktivirajKorisnika(korisnik)">
+                          Aktiviraj
+                        </button>
+                      }
+                    }
+                    @if (korisnik.role === 'admin') {
+                      <span class="admin-note">—</span>
+                    }
+                  </div>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    }
+  }
+</div>

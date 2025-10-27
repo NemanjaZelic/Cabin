@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Clear LocalStorage</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 50px;
+            background: #f0f0f0;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            max-width: 600px;
+            margin: 0 auto;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        button {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px 0;
+        }
+        button:hover {
+            background: #c0392b;
+        }
+        .success {
+            background: #2ecc71;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 20px 0;
+            display: none;
+        }
+        pre {
+            background: #ecf0f1;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧹 Clear Application Storage</h1>
+        <p>Ova stranica briše localStorage podatke za aplikaciju Planinska Vikendica.</p>
+        
+        <h3>Trenutni localStorage:</h3>
+        <pre id="current-storage"></pre>
+        
+        <button onclick="clearStorage()">🗑️ Obriši sve podatke</button>
+        <button onclick="showStorage()">🔄 Osveži prikaz</button>
+        
+        <div class="success" id="success-msg">
+            ✅ localStorage je uspešno obrisan! Možete zatvoriti ovu stranicu i ponovo se ulogovati.
+        </div>
+        
+        <h3>Uputstvo:</h3>
+        <ol>
+            <li>Kliknite "Obriši sve podatke"</li>
+            <li>Idite na <a href="http://localhost:4200" target="_blank">http://localhost:4200</a></li>
+            <li>Ulogujte se ponovo (marko / Marko123!)</li>
+            <li>Idite na rezervacije</li>
+        </ol>
+    </div>
+    
+    <script>
+        function showStorage() {
+            const storage = {};
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                storage[key] = localStorage.getItem(key);
+            }
+            document.getElementById('current-storage').textContent = 
+                JSON.stringify(storage, null, 2) || '(prazan)';
+        }
+        
+        function clearStorage() {
+            localStorage.clear();
+            document.getElementById('success-msg').style.display = 'block';
+            showStorage();
+        }
+        
+        // Prikaži početno stanje
+        showStorage();
+    </script>
+</body>
+</html>

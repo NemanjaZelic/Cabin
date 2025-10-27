@@ -1,0 +1,33 @@
+﻿.login-container, .registracija-container {
+  max-width: 400px;
+  margin: 40px auto;
+  background: white;
+  border: 1px solid #ccc;
+  padding: 25px;
+}
+
+.form-group {
+  margin-bottom: 12px;
+}
+
+label {
+  display: block;
+  margin-bottom: 4px;
+}
+
+input, select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #999;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 8px;
+}
+
+p {
+  text-align: center;
+  margin-top: 12px;
+}

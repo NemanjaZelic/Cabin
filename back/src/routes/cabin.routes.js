@@ -1,0 +1,13 @@
+const express = require('express');
+const router = express.Router();
+const cabinController = require('../controllers/cabin.controller');
+const { protect, authorize } = require('../middleware/auth');
+const upload = require('../middleware/upload');
+router.get('/', cabinController.getAllCabins);
+router.get('/my-cabins', protect, authorize('vlasnik'), cabinController.getMyCabins);
+router.get('/:id', cabinController.getCabinById);
+router.post('/', protect, authorize('vlasnik'), upload.array('cabinImages', 10), cabinController.createCabin);
+router.put('/:id', protect, authorize('vlasnik'), upload.array('cabinImages', 10), cabinController.updateCabin);
+router.delete('/:id', protect, authorize('vlasnik'), cabinController.deleteCabin);
+router.get('/owner/:ownerId', protect, authorize('vlasnik'), cabinController.getCabinsByOwner);
+module.exports = router;

@@ -1,0 +1,141 @@
+<div class="rezervacije-container">
+  <h2>Rezervacije za moje vikendice</h2>
+
+  @if (poruka) {
+    <div class="alert alert-success">{{ poruka }}</div>
+  }
+  @if (greska) {
+    <div class="alert alert-error">{{ greska }}</div>
+  }
+
+  
+  <div class="tabs">
+    <button 
+      [class.active]="aktivniTab === 'pending'"
+      (click)="aktivniTab = 'pending'">
+      Na čekanju ({{ getBrojPendingRezervacija() }})
+    </button>
+    <button 
+      [class.active]="aktivniTab === 'confirmed'"
+      (click)="aktivniTab = 'confirmed'">
+      Potvrđeno ({{ getBrojConfirmedRezervacija() }})
+    </button>
+    <button 
+      [class.active]="aktivniTab === 'all'"
+      (click)="aktivniTab = 'all'">
+      Sve ({{ rezervacije.length }})
+    </button>
+  </div>
+
+  @if (ucitavanje) {
+    <div class="loading">
+      <p>Učitavanje rezervacija...</p>
+    </div>
+  } @else {
+    @if (getFilteredRezervacije().length === 0) {
+      <div class="no-data">
+        <p>Nema rezervacija za prikaz.</p>
+      </div>
+    } @else {
+      <div class="rezervacije-lista">
+        @for (rez of getFilteredRezervacije(); track rez._id) {
+          <div class="rezervacija-card">
+            <div class="card-header">
+              <div>
+                <h3>{{ rez.cabin.name || 'Vikendica' }}</h3>
+                <p class="tourist-info">Turista: {{ rez.tourist.firstName }} {{ rez.tourist.lastName }}</p>
+              </div>
+              <span class="status-badge" [style.background]="getStatusBoja(rez.status)">
+                {{ getStatusTekst(rez.status) }}
+              </span>
+            </div>
+
+            <div class="card-body">
+              <div class="info-row">
+                <span class="label">Datum dolaska:</span>
+                <span class="value">{{ rez.startDate | date: 'dd.MM.yyyy' }}</span>
+              </div>
+
+              <div class="info-row">
+                <span class="label">Datum odlaska:</span>
+                <span class="value">{{ rez.endDate | date: 'dd.MM.yyyy' }}</span>
+              </div>
+
+              <div class="info-row">
+                <span class="label">Osobe:</span>
+                <span class="value">{{ rez.adults }} odraslih, {{ rez.children }} dece</span>
+              </div>
+
+              <div class="info-row">
+                <span class="label">Ukupna cena:</span>
+                <span class="value price">{{ rez.totalPrice }} RSD</span>
+              </div>
+
+              <div class="info-row">
+                <span class="label">Email:</span>
+                <span class="value">{{ rez.tourist.email }}</span>
+              </div>
+
+              <div class="info-row">
+                <span class="label">Telefon:</span>
+                <span class="value">{{ rez.tourist.phone || 'N/A' }}</span>
+              </div>
+
+              @if (rez.specialRequests) {
+                <div class="info-row">
+                  <span class="label">Posebni zahtevi:</span>
+                  <span class="value">{{ rez.specialRequests }}</span>
+                </div>
+              }
+
+              @if (rez.rejectionReason) {
+                <div class="info-row rejection">
+                  <span class="label">Razlog odbijanja:</span>
+                  <span class="value">{{ rez.rejectionReason }}</span>
+                </div>
+              }
+            </div>
+
+            
+            @if (odbijaRezervacijuId === rez._id) {
+              <div class="odbijanje-forma">
+                <label>Razlog odbijanja: *</label>
+                <textarea 
+                  [(ngModel)]="razlogOdbijanja"
+                  placeholder="Unesite razlog odbijanja..."
+                  rows="3"></textarea>
+                <div class="forma-actions">
+                  <button class="btn btn-danger" (click)="odbijiRezervaciju(rez)">
+                    Potvrdi odbijanje
+                  </button>
+                  <button class="btn btn-secondary" (click)="otkaziOdbijanje()">
+                    Otkaži
+                  </button>
+                </div>
+              </div>
+            }
+
+            
+            @if (!odbijaRezervacijuId || odbijaRezervacijuId !== rez._id) {
+              <div class="card-actions">
+                <button class="btn btn-secondary" (click)="prikaziVikendicu(rez.cabin._id || rez.cabin)">
+                  Prikaži vikendicu
+                </button>
+                @if (mozePrihvatiti(rez)) {
+                  <button class="btn btn-success" (click)="prihvatiRezervaciju(rez)">
+                    Prihvati
+                  </button>
+                }
+                @if (mozeOdbiti(rez)) {
+                  <button class="btn btn-danger" (click)="prikaziFormuZaOdbijanje(rez._id!)">
+                    Odbij
+                  </button>
+                }
+              </div>
+            }
+          </div>
+        }
+      </div>
+    }
+  }
+</div>

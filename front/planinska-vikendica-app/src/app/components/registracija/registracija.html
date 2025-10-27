@@ -1,0 +1,232 @@
+<div class="registracija-container">
+  <div class="registracija-card">
+    <h2>Registracija</h2>
+    
+    
+    <div class="tip-korisnika">
+      <button 
+        type="button"
+        [class.active]="tipKorisnika === 'turista'"
+        (click)="tipKorisnika = 'turista'">
+        Turista
+      </button>
+      <button 
+        type="button"
+        [class.active]="tipKorisnika === 'vlasnik'"
+        (click)="tipKorisnika = 'vlasnik'">
+        Vlasnik
+      </button>
+    </div>
+
+    <form (ngSubmit)="onSubmit()" #registracijaForma="ngForm">
+      
+      
+      <div class="form-group">
+        <label for="korisnickoIme">Korisničko ime *</label>
+        <input 
+          type="text" 
+          id="korisnickoIme" 
+          name="korisnickoIme"
+          [(ngModel)]="korisnickoIme"
+          (blur)="validateKorisnickoIme()"
+          required
+          placeholder="Unesite korisničko ime">
+        @if (validacijaKorisnickoIme) {
+          <small class="error">{{ validacijaKorisnickoIme }}</small>
+        }
+      </div>
+
+      
+      <div class="form-group">
+        <label for="lozinka">Lozinka *</label>
+        <input 
+          type="password" 
+          id="lozinka" 
+          name="lozinka"
+          [(ngModel)]="lozinka"
+          (blur)="validateLozinka()"
+          required
+          placeholder="Unesite lozinku">
+        @if (validacijaLozinka) {
+          <small class="error">{{ validacijaLozinka }}</small>
+        }
+      </div>
+
+      
+      <div class="form-group">
+        <label for="potvrdaLozinke">Potvrda lozinke *</label>
+        <input 
+          type="password" 
+          id="potvrdaLozinke" 
+          name="potvrdaLozinke"
+          [(ngModel)]="potvrdaLozinke"
+          required
+          placeholder="Potvrdite lozinku">
+      </div>
+
+      
+      <div class="form-row">
+        <div class="form-group">
+          <label for="ime">Ime *</label>
+          <input 
+            type="text" 
+            id="ime" 
+            name="ime"
+            [(ngModel)]="ime"
+            required
+            placeholder="Vaše ime">
+        </div>
+
+        <div class="form-group">
+          <label for="prezime">Prezime *</label>
+          <input 
+            type="text" 
+            id="prezime" 
+            name="prezime"
+            [(ngModel)]="prezime"
+            required
+            placeholder="Vaše prezime">
+        </div>
+      </div>
+
+      
+      <div class="form-group">
+        <label>Pol *</label>
+        <div class="radio-group">
+          <label>
+            <input 
+              type="radio" 
+              name="pol" 
+              value="M"
+              [(ngModel)]="pol">
+            Muški
+          </label>
+          <label>
+            <input 
+              type="radio" 
+              name="pol" 
+              value="F"
+              [(ngModel)]="pol">
+            Ženski
+          </label>
+        </div>
+      </div>
+
+      
+      <div class="form-group">
+        <label for="adresa">Adresa *</label>
+        <input 
+          type="text" 
+          id="adresa" 
+          name="adresa"
+          [(ngModel)]="adresa"
+          required
+          placeholder="Ulica i broj">
+      </div>
+
+      
+      <div class="form-row">
+        <div class="form-group">
+          <label for="telefon">Telefon *</label>
+          <input 
+            type="tel" 
+            id="telefon" 
+            name="telefon"
+            [(ngModel)]="telefon"
+            required
+            placeholder="06x xxx xxxx">
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email *</label>
+          <input 
+            type="email" 
+            id="email" 
+            name="email"
+            [(ngModel)]="email"
+            required
+            placeholder="vas@email.com">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="brojKreditneKartice">Broj kreditne kartice *</label>
+        <input 
+          type="text" 
+          id="brojKreditneKartice" 
+          name="brojKreditneKartice"
+          [(ngModel)]="brojKreditneKartice"
+          (blur)="validateKreditnaKartica()"
+          required
+          placeholder="Diners, MasterCard ili Visa"
+          maxlength="19">
+        @if (validacijaKreditnaKartica) {
+          <small class="error">{{ validacijaKreditnaKartica }}</small>
+        }
+        <small class="hint">Prihvatamo: Diners (300-303, 36, 38), MasterCard (51-55), Visa (4539, 4556, 4916, 4532, 4929, 4485, 4716)</small>
+      </div>
+
+      <div class="form-group">
+        <label for="profilnaSlika">Profilna slika *</label>
+        <input 
+          type="file" 
+          id="profilnaSlika" 
+          name="profilnaSlika"
+          (change)="onFileSelected($event)"
+          accept="image/*"
+          required>
+        @if (profilnaSlikaPreview) {
+          <div class="image-preview">
+            <img [src]="profilnaSlikaPreview" alt="Preview">
+          </div>
+        }
+        <small class="hint">JPG ili PNG, max 2MB</small>
+      </div>
+
+      <div class="form-group">
+        <label for="bezbedonosnoPitanje">Bezbednosno pitanje (opciono)</label>
+        <input 
+          type="text" 
+          id="bezbedonosnoPitanje" 
+          name="bezbedonosnoPitanje"
+          [(ngModel)]="bezbedonosnoPitanje"
+          placeholder="Npr. Ime prvog ljubimca?">
+      </div>
+
+      @if (bezbedonosnoPitanje) {
+        <div class="form-group">
+          <label for="odgovorNaPitanje">Odgovor na pitanje</label>
+          <input 
+            type="text" 
+            id="odgovorNaPitanje" 
+            name="odgovorNaPitanje"
+            [(ngModel)]="odgovorNaPitanje"
+            placeholder="Vaš odgovor">
+        </div>
+      }
+
+      
+      @if (poruka) {
+        <div class="alert alert-success">{{ poruka }}</div>
+      }
+      @if (greska) {
+        <div class="alert alert-error">{{ greska }}</div>
+      }
+
+      
+      <div class="form-actions">
+        <button 
+          type="submit" 
+          class="btn btn-primary"
+          [disabled]="ucitavanje || !registracijaForma.valid">
+          @if (ucitavanje) {
+            <span>Učitavanje...</span>
+          } @else {
+            <span>Registruj se</span>
+          }
+        </button>
+        <a routerLink="/prijava" class="btn btn-secondary">Već imam nalog</a>
+      </div>
+    </form>
+  </div>
+</div>

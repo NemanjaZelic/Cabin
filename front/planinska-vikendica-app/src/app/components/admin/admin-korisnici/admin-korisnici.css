@@ -1,0 +1,28 @@
+﻿.container {
+  max-width: 1000px;
+  margin: 20px auto;
+  padding: 15px;
+}
+
+table {
+  width: 100%;
+  margin-top: 15px;
+}
+
+button {
+  padding: 6px 10px;
+  margin: 2px;
+}
+
+.search-bar {
+  margin-bottom: 15px;
+  padding: 12px;
+  background: white;
+  border: 1px solid #ccc;
+}
+
+.search-bar input {
+  padding: 6px;
+  margin-right: 8px;
+  border: 1px solid #999;
+}

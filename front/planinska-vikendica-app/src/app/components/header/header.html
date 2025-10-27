@@ -1,0 +1,39 @@
+<header class="header">
+  <div class="container">
+    <div class="logo">
+      <a routerLink="/">
+        <h1>Planinska Vikendica</h1>
+      </a>
+    </div>
+    
+    <nav class="nav">
+      @if (!trenutniKorisnik) {
+        <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Početna</a>
+        <a routerLink="/prijava" routerLinkActive="active">Prijava</a>
+        <a routerLink="/registracija" routerLinkActive="active">Registracija</a>
+      }
+      
+      @if (trenutniKorisnik?.role === 'turista') {
+        <a routerLink="/turista/profil" routerLinkActive="active">Profil</a>
+        <a routerLink="/turista/vikendice" routerLinkActive="active">Vikendice</a>
+        <a routerLink="/turista/rezervacije" routerLinkActive="active">Rezervacije</a>
+        <button (click)="odjava()" class="btn-odjava">Odjava</button>
+      }
+      
+      @if (trenutniKorisnik?.role === 'vlasnik') {
+        <a routerLink="/vlasnik/profil" routerLinkActive="active">Profil</a>
+        <a routerLink="/vlasnik/vikendice" routerLinkActive="active">Moje Vikendice</a>
+        <a routerLink="/vlasnik/rezervacije" routerLinkActive="active">Rezervacije</a>
+        <a routerLink="/vlasnik/statistika" routerLinkActive="active">Statistika</a>
+        <button (click)="odjava()" class="btn-odjava">Odjava</button>
+      }
+      
+      @if (trenutniKorisnik?.role === 'admin') {
+        <a routerLink="/admin/korisnici" routerLinkActive="active">Korisnici</a>
+        <a routerLink="/admin/zahtevi" routerLinkActive="active">Zahtevi</a>
+        <a routerLink="/admin/vikendice" routerLinkActive="active">Vikendice</a>
+        <button (click)="odjava()" class="btn-odjava">Odjava</button>
+      }
+    </nav>
+  </div>
+</header>

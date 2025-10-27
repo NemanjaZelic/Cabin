@@ -1,0 +1,184 @@
+<div class="profil-container">
+  @if (ucitavanje) {
+    <div class="loading">
+      <div class="spinner"></div>
+      <p>Učitavanje profila...</p>
+    </div>
+  } @else if (korisnik) {
+    <div class="profil-card">
+      <h2>Moj Profil</h2>
+      
+      
+      @if (poruka) {
+        <div class="alert alert-success">{{ poruka }}</div>
+      }
+      @if (greska) {
+        <div class="alert alert-error">{{ greska }}</div>
+      }
+
+      
+      <div class="tabs">
+        <button 
+          [class.active]="mod === 'pregled'"
+          (click)="mod = 'pregled'; otkaziIzmene()">
+          Pregled
+        </button>
+        <button 
+          [class.active]="mod === 'izmena'"
+          (click)="mod = 'izmena'">
+          Izmeni Podatke
+        </button>
+        <button 
+          [class.active]="mod === 'promena-lozinke'"
+          (click)="mod = 'promena-lozinke'">
+          Promeni Lozinku
+        </button>
+      </div>
+
+      
+      @if (mod === 'pregled') {
+        <div class="profil-pregled">
+          <div class="profil-slika">
+            <img [src]="getProfilnaSlika()" alt="Profilna slika">
+          </div>
+          
+          <div class="profil-info">
+            <div class="info-row">
+              <span class="label">Korisničko ime:</span>
+              <span class="value">{{ korisnik.username }}</span>
+            </div>
+            <div class="info-row">
+              <span class="label">Ime i prezime:</span>
+              <span class="value">{{ korisnik.firstName }} {{ korisnik.lastName }}</span>
+            </div>
+            <div class="info-row">
+              <span class="label">Pol:</span>
+              <span class="value">{{ korisnik.gender === 'M' ? 'Muški' : 'Ženski' }}</span>
+            </div>
+            <div class="info-row">
+              <span class="label">Adresa:</span>
+              <span class="value">{{ korisnik.address }}</span>
+            </div>
+            <div class="info-row">
+              <span class="label">Telefon:</span>
+              <span class="value">{{ korisnik.phone }}</span>
+            </div>
+            <div class="info-row">
+              <span class="label">Email:</span>
+              <span class="value">{{ korisnik.email }}</span>
+            </div>
+            <div class="info-row">
+              <span class="label">Uloga:</span>
+              <span class="value badge">{{ korisnik.role === 'turista' ? 'Turista' : 'Vlasnik' }}</span>
+            </div>
+            <div class="info-row">
+              <span class="label">Status:</span>
+              <span class="value badge" [class.status-active]="korisnik.status === 'active'" 
+                    [class.status-pending]="korisnik.status === 'pending'">
+                {{ korisnik.status === 'active' ? 'Aktivan' : 
+                   korisnik.status === 'pending' ? 'Na čekanju' : 
+                   korisnik.status === 'rejected' ? 'Odbijen' : 'Deaktiviran' }}
+              </span>
+            </div>
+          </div>
+        </div>
+      }
+
+      
+      @if (mod === 'izmena') {
+        <form class="profil-forma">
+          <div class="form-group">
+            <label>Trenutna profilna slika:</label>
+            <div class="current-image">
+              <img [src]="getProfilnaSlika()" alt="Trenutna slika">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="novaSlika">Nova profilna slika (opciono)</label>
+            <input 
+              type="file" 
+              id="novaSlika"
+              (change)="onFileSelected($event)"
+              accept="image/*">
+            @if (novaProfilnaSlikaPreview) {
+              <div class="image-preview">
+                <img [src]="novaProfilnaSlikaPreview" alt="Nova slika">
+              </div>
+            }
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="ime">Ime *</label>
+              <input type="text" id="ime" [(ngModel)]="ime" name="ime" required>
+            </div>
+            <div class="form-group">
+              <label for="prezime">Prezime *</label>
+              <input type="text" id="prezime" [(ngModel)]="prezime" name="prezime" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="adresa">Adresa *</label>
+            <input type="text" id="adresa" [(ngModel)]="adresa" name="adresa" required>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="telefon">Telefon *</label>
+              <input type="tel" id="telefon" [(ngModel)]="telefon" name="telefon" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Email *</label>
+              <input type="email" id="email" [(ngModel)]="email" name="email" required>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" class="btn btn-primary" (click)="sacuvajIzmene()" [disabled]="cuvanje">
+              @if (cuvanje) {
+                <span>Čuvanje...</span>
+              } @else {
+                <span>Sačuvaj</span>
+              }
+            </button>
+            <button type="button" class="btn btn-secondary" (click)="otkaziIzmene()">Otkaži</button>
+          </div>
+        </form>
+      }
+
+      
+      @if (mod === 'promena-lozinke') {
+        <form class="profil-forma">
+          <div class="form-group">
+            <label for="staraLozinka">Stara lozinka *</label>
+            <input type="password" id="staraLozinka" [(ngModel)]="staraLozinka" name="staraLozinka" required>
+          </div>
+
+          <div class="form-group">
+            <label for="novaLozinka">Nova lozinka *</label>
+            <input type="password" id="novaLozinka" [(ngModel)]="novaLozinka" name="novaLozinka" required>
+            <small>6-10 karaktera, počinje slovom, 1 veliko, 3 mala, 1 broj, 1 specijalni </small>
+          </div>
+
+          <div class="form-group">
+            <label for="potvrdaLozinke">Potvrda lozinke *</label>
+            <input type="password" id="potvrdaLozinke" [(ngModel)]="potvrdaLozinke" name="potvrdaLozinke" required>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" class="btn btn-primary" (click)="promeniLozinku()" [disabled]="cuvanje">
+              @if (cuvanje) {
+                <span>Čuvanje...</span>
+              } @else {
+                <span>Promeni Lozinku</span>
+              }
+            </button>
+            <button type="button" class="btn btn-secondary" (click)="otkaziIzmene()">Otkaži</button>
+          </div>
+        </form>
+      }
+    </div>
+  }
+</div>

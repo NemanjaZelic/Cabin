@@ -1,0 +1,24 @@
+﻿.container {
+  max-width: 900px;
+  margin: 20px auto;
+  padding: 15px;
+}
+
+.card {
+  border: 1px solid #ccc;
+  background: white;
+  padding: 12px;
+  margin: 10px 0;
+}
+
+.info-row {
+  margin: 6px 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.card-actions {
+  margin-top: 10px;
+  display: flex;
+  gap: 8px;
+}

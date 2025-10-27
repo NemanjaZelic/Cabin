@@ -1,0 +1,87 @@
+<div class="vikendice-container">
+  <h2>Pregled svih vikendica</h2>
+
+  @if (poruka) {
+    <div class="alert alert-success">{{ poruka }}</div>
+  }
+  @if (greska) {
+    <div class="alert alert-error">{{ greska }}</div>
+  }
+
+  @if (ucitavanje) {
+    <div class="loading">
+      <p>Učitavanje vikendica...</p>
+    </div>
+  } @else {
+    @if (vikendice.length === 0) {
+      <div class="no-data">
+        <p>Nema vikendica u sistemu.</p>
+      </div>
+    } @else {
+      <div class="stats">
+        <div class="stat-card">
+          <h3>{{ vikendice.length }}</h3>
+          <p>Ukupno vikendica</p>
+        </div>
+        <div class="stat-card">
+          <h3>{{ getAktivneVikendice() }}</h3>
+          <p>Aktivnih vikendica</p>
+        </div>
+      </div>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Slika</th>
+              <th>Naziv</th>
+              <th>Mesto</th>
+              <th>Vlasnik</th>
+              <th>Telefon</th>
+              <th>Cena (L/Z)</th>
+              <th>Ocena</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (vikendica of vikendice; track vikendica._id) {
+              <tr>
+                <td>
+                  @if (vikendica.images && vikendica.images.length > 0) {
+                    <img [src]="getSlikaUrl(vikendica.images[0])" [alt]="vikendica.name" class="table-image">
+                  } @else {
+                    <div class="no-image-small">-</div>
+                  }
+                </td>
+                <td><strong>{{ vikendica.name }}</strong></td>
+                <td>{{ vikendica.place }}</td>
+                <td>
+                  @if (vikendica.owner) {
+                    {{ vikendica.owner.firstName }} {{ vikendica.owner.lastName }}
+                  } @else {
+                    <span class="text-muted">N/A</span>
+                  }
+                </td>
+                <td>{{ vikendica.phone }}</td>
+                <td>L: {{ vikendica.pricing.summer }} / Z: {{ vikendica.pricing.winter }} RSD</td>
+                <td>
+                  <div class="rating">
+                    @for (star of getRatingStars(vikendica.averageRating || 0); track $index) {
+                      @if (star === 'full') {
+                        <span class="star full">*</span>
+                      } @else if (star === 'half') {
+                        <span class="star half">*</span>
+                      } @else {
+                        <span class="star empty">*</span>
+                      }
+                    }
+                    <span class="rating-value">{{ vikendica.averageRating.toFixed(1) || '0.0' }}</span>
+                  </div>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    }
+  }
+</div>
